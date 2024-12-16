@@ -14,7 +14,7 @@ const MainLayout = ({ children }: Props) => {
         <SidebarInset>
           <Topbar />
 
-          <main className="bg-background">{children}</main>
+          <main className="bg-background p-10">{children}</main>
         </SidebarInset>
       </SidebarProvider>
     </div>

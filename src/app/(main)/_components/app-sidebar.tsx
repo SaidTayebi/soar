@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { ClipboardCheck, Home, Settings } from "lucide-react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 export const menuItems = [
@@ -49,14 +49,14 @@ const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
             <SidebarMenuItem
               key={item.title}
               className={cn(
-                "py-4 hover:bg-muted",
-                pathname === item.url && "border-l-4 border-primary"
+                "py-4 hover:bg-muted border-l-4 border-transparent",
+                pathname === item.url && " border-primary"
               )}
             >
               <SidebarMenuButton
                 className={cn(
                   "flex items-center gap-2 py-4 px-6 hover:bg-transparent rounded-none text-muted-foreground",
-                  pathname === item.url && "text-primary font-semibold px-5"
+                  pathname === item.url && "text-primary font-semibold"
                 )}
                 asChild
               >

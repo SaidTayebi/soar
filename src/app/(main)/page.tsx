@@ -1,4 +1,5 @@
 import Activity from "@/features/activity/components/acitivity";
+import Balance from "@/features/balance/components/balance";
 import Cards from "@/features/cards/components/cards";
 import Expenses from "@/features/expenses/components/expenses";
 import Transactions from "@/features/transactions/components/transactions";
@@ -17,6 +18,7 @@ const HomePage = () => {
       </div>
       <div className="flex gap-7">
         <Contacts />
+        <Balance />
       </div>
     </div>
   );

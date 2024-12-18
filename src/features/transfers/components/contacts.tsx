@@ -80,8 +80,8 @@ const Contacts = () => {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="size-12" />
-          <CarouselNext className="size-12" />
+          <CarouselPrevious className="size-12 shadow-md" />
+          <CarouselNext className="size-12 shadow-md" />
         </Carousel>
         <div className="flex items-center space-x-4">
           <span className="text-sm text-gray-500">Write amount</span>

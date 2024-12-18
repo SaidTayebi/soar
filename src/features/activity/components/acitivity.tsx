@@ -26,14 +26,12 @@ const Activity = () => {
     },
   } satisfies ChartConfig;
 
-  if (isLoading) return <div>Loading...</div>;
-
   return (
     <div className="flex flex-col gap-4 w-max">
       <div className="flex justify-between">
         <span className="text-2xl font-semibold">Weekly Activity</span>
       </div>
-      <div className="flex flex-col gap-5 rounded-3xl bg-white border border-gray-200 h-[322px] w-[730px] p-6">
+      <div className="flex flex-col gap-5 rounded-3xl bg-white border border-gray-200 h-[322px] w-[730px] p-6 pl-0">
         <div className="flex items-center self-end gap-6">
           <div className="flex items-center gap-2">
             <div className="rounded-full w-[15px] h-[15px] bg-black"></div>

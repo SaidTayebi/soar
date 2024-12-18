@@ -13,8 +13,6 @@ import {
 const Cards = () => {
   const { data, isLoading } = useGetCards();
 
-  if (isLoading) return <div>Loading...</div>;
-
   return (
     <div className="flex flex-col gap-4 w-max">
       <div className="flex justify-between">
@@ -37,10 +35,13 @@ const Cards = () => {
           </SheetContent>
         </Sheet>
       </div>
-      <div className="flex gap-7">
-        {data.slice(0, 2).map((card) => (
-          <Card key={card.number} {...card} />
-        ))}
+
+      <div className="flex gap-7 w-[730px] overflow-x-auto">
+        {isLoading
+          ? Array.from({ length: 2 }, (_, index) => (
+              <Card.Skeleton key={index} />
+            ))
+          : data.map((card) => <Card key={card.number} {...card} />)}
       </div>
     </div>
   );

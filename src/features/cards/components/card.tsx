@@ -1,5 +1,6 @@
 "use client";
 
+import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
@@ -24,8 +25,9 @@ const Card = ({
   return (
     <div
       className={cn(
-        "flex flex-col justify-between bg-gray-800 rounded-xl w-[350px] h-[235px] text-secondary",
-        variant === "light" && "bg-white text-black border border-gray-200"
+        "flex flex-col justify-between bg-gray-800 rounded-3xl min-w-[350px] h-[235px] text-secondary",
+        variant === "light" &&
+          "bg-white text-black border border-gray-200 border-b-"
       )}
     >
       <div className="flex flex-col justify-between h-full px-7 pt-6 pb-9">
@@ -59,7 +61,7 @@ const Card = ({
       </div>
       <div
         className={cn(
-          "flex justify-between items-center h-[70px] bg-gray-600 px-7 py-4 rounded-b-xl",
+          "flex justify-between items-center h-[70px] bg-gray-600 px-7 py-4 rounded-b-3xl",
           variant === "light" && "bg-white border-t border-gray-200"
         )}
       >
@@ -75,6 +77,12 @@ const Card = ({
       </div>
     </div>
   );
+};
+
+Card.displayName = "Card";
+
+Card.Skeleton = function CardSkeleton() {
+  return <Skeleton className="rounded-3xl w-[350px] h-[235px]" />;
 };
 
 export default Card;

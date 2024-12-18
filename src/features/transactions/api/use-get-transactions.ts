@@ -45,6 +45,16 @@ const fetchTransactions: () => Promise<TransactionType[]> = async () => {
       icon: "transaction_3.svg",
       bgColor: "#DCFAF8",
     },
+    {
+      id: "4",
+      label: "Jemi Wilson",
+      date: "2021-01-21",
+      amount: "5,400",
+      type: "deposit",
+      currency: "€",
+      icon: "transaction_1.svg",
+      bgColor: "#DCFAF8",
+    },
   ];
 };
 

@@ -108,10 +108,6 @@ const Expenses = () => {
       .style("font-size", "14px");
   }, [data]);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <div className="flex flex-col gap-4 w-max">
       <div className="flex justify-between">

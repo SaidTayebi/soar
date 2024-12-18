@@ -38,10 +38,6 @@ const Contacts = () => {
     }
   }, [isSuccess, isTransferLoading]);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   const handleTransfer = () => {
     if (selectedContact && amount && amount > 0) {
       transfer({ contactId: selectedContact.id, amount });
@@ -56,12 +52,12 @@ const Contacts = () => {
       <div className="flex justify-between">
         <span className="text-2xl font-semibold">Quick Transfer</span>
       </div>
-      <div className="flex flex-col items-center gap-5 rounded-3xl bg-white border border-gray-200 h-[276px] w-[445px] p-6">
+      <div className="flex flex-col items-center gap-10 rounded-3xl bg-white border border-gray-200 h-[276px] w-[445px] p-6">
         <Carousel
           opts={{
             align: "center",
           }}
-          className="w-[300px] max-w-sm"
+          className="w-[300px] max-w-sm h-[140px] pt-2"
         >
           <CarouselContent className="-ml-1">
             {data.map((contact) => (
@@ -90,13 +86,14 @@ const Contacts = () => {
               className={`bg-gray-100 rounded-full h-12 pl-6 w-[180px] ${
                 shake && !amount && "animate-shake border-red-500"
               }`}
-              placeholder="525.50"
+              placeholder="$525.50"
               value={amount ?? ""}
+              disabled={isTransferLoading || isLoading}
               onChange={(e) => setAmount(Number(e.target.value))}
             />
             <Button
               className="relative rounded-full h-[50px] px-6 z-10 -left-11"
-              disabled={isTransferLoading}
+              disabled={isTransferLoading || isLoading}
               onClick={handleTransfer}
             >
               Send

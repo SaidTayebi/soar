@@ -10,6 +10,16 @@ export default {
   ],
   theme: {
     extend: {
+      keyframes: {
+        shake: {
+          "0%, 100%": { transform: "translateX(0)" },
+          "25%": { transform: "translateX(8px)" },
+          "75%": { transform: "translateX(-8px)" },
+        },
+      },
+      animation: {
+        shake: "shake 0.2s ease-in-out 0s 2",
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

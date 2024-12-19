@@ -1,5 +1,375 @@
+"use client";
+
+import React, { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+
+import { Input } from "@/components/ui/input";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
+import { useProfileState } from "@/features/settings/store/profile-store";
+import Avatar from "../_components/avatar";
+import { useUploadAvatar } from "@/features/settings/api/use-upload-avatar";
+
+const tabs = [
+  { id: "profile", label: "Edit Profile" },
+  { id: "preferences", label: "Preferences" },
+  { id: "security", label: "Security" },
+];
+
+const FormSchema = z.object({
+  name: z
+    .string({
+      required_error: "Name is required",
+    })
+    .trim()
+    .min(3, {
+      message: "Name must be at least 3 characters long.",
+    }),
+  userName: z
+    .string({
+      required_error: "Username is required",
+    })
+    .trim()
+    .min(3, {
+      message: "Username must be at least 3 characters long.",
+    }),
+  email: z
+    .string({
+      required_error: "Email is required",
+    })
+    .email({
+      message: "Invalid email address",
+    }),
+  password: z
+    .string({
+      required_error: "Password is required",
+    })
+    .min(8, {
+      message: "Password must be at least 8 characters long.",
+    }),
+  dateOfBirth: z.string().optional(),
+  presentAddress: z.string().optional(),
+  permanentAddress: z.string().optional(),
+  city: z.string().optional(),
+  zip: z.string().optional(),
+  country: z.string().optional(),
+  avatar: z.string().optional(),
+});
+
 const SettingsPage = () => {
-  return <div>Settings Page</div>;
+  const [activeTab, setActiveTab] = useState("profile");
+  const [underlineWidth, setUnderlineWidth] = useState(0);
+  const [underlineLeft, setUnderlineLeft] = useState(0);
+  const tabsRef = useRef<(HTMLButtonElement | undefined)[]>([]);
+
+  const { profile, isLoading, setProfile } = useProfileState();
+  const {
+    uploadAvatar,
+    isLoading: isUploading,
+    isSuccess,
+    data,
+  } = useUploadAvatar();
+
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      name: "",
+      userName: "",
+      password: "",
+      email: "",
+      dateOfBirth: "",
+      presentAddress: "",
+      permanentAddress: "",
+      city: "",
+      zip: "",
+      country: "",
+      avatar: "",
+    },
+  });
+
+  useEffect(() => {
+    if (!isLoading && profile) {
+      form.reset({ ...profile });
+    }
+  }, [profile, isLoading, form]);
+
+  useEffect(() => {
+    // Find the active tab button
+    const activeTabIndex = tabs.findIndex((tab) => tab.id === activeTab);
+    const activeTabButton = tabsRef.current[activeTabIndex];
+
+    if (activeTabButton) {
+      // Get the width and position of the active tab
+      const buttonRect = activeTabButton.getBoundingClientRect();
+      const containerRect =
+        activeTabButton.parentElement?.getBoundingClientRect();
+
+      if (containerRect) {
+        setUnderlineWidth(buttonRect.width);
+        setUnderlineLeft(buttonRect.left - containerRect.left);
+      }
+    }
+  }, [activeTab]);
+
+  const onSubmit = (data: z.infer<typeof FormSchema>) => {
+    console.log(data);
+  };
+
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
+    if (!file) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("avatar", file);
+
+    uploadAvatar({
+      data: formData,
+      onSuccess: (payload) => {
+        const { avatarPath } = payload;
+
+        setProfile({
+          ...profile,
+          avatar: avatarPath,
+          updatedAt: Date.now(),
+        });
+      },
+      onError: (error) => {
+        console.error("Error uploading avatar:", error);
+      },
+    });
+  };
+
+  return (
+    <div className="rounded-3xl bg-white w-full h-full p-9">
+      <div className="flex items-center space-x-10 md:space-x-20 border-b border-gray-100 relative">
+        <motion.div
+          className="absolute bottom-0 h-0.5 bg-blue-600 "
+          animate={{
+            width: underlineWidth,
+            x: underlineLeft,
+          }}
+          transition={{
+            type: "spring",
+            stiffness: 500,
+            damping: 30,
+          }}
+        />
+
+        {tabs.map((tab, index) => (
+          <button
+            className={`pb-3 transition-colors duration-200
+            ${activeTab === tab.id ? "text-blue-600" : "text-gray-600 hover:text-gray-900"}`}
+            key={tab.id}
+            ref={(el) => {
+              tabsRef.current[index] = el || undefined;
+            }}
+            onClick={() => setActiveTab(tab.id)}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      <div className="lg:px-10 py-14">
+        <AnimatePresence mode="wait">
+          {activeTab === "profile" && (
+            <motion.div
+              key="profile"
+              className="flex flex-col lg:items-start lg:flex-row items-center w-full lg:space-x-12"
+              initial={{ x: 20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: -20, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Avatar
+                src={`${profile?.avatar || "/avatars/avatar.png"}?t=${profile?.updatedAt || 0}`}
+                size={90}
+                isEditable
+                onChange={handleFileChange}
+              />
+
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="flex flex-col space-y-6 w-full"
+                >
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <FormField
+                      control={form.control}
+                      name="name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Name</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="userName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Username</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Email</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="password"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Password</FormLabel>
+                          <FormControl>
+                            <Input type="password" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="dateOfBirth"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Date of Birth</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="presentAddress"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Present Address</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="permanentAddress"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Permanent Address</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="city"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>City</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="zip"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Postal Code</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="country"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Country</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <Button
+                    className="w-full lg:w-auto lg:self-end"
+                    size="lg"
+                    type="submit"
+                  >
+                    Save
+                  </Button>
+                </form>
+              </Form>
+            </motion.div>
+          )}
+          {activeTab === "preferences" && (
+            <motion.div
+              key="preferences"
+              initial={{ x: 20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: -20, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div>Preferences</div>
+            </motion.div>
+          )}
+          {activeTab === "security" && (
+            <motion.div
+              key="security"
+              initial={{ x: 20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: -20, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div>Security</div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </div>
+  );
 };
 
 export default SettingsPage;

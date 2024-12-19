@@ -23,6 +23,7 @@ import { useSaveProfile } from "@/features/settings/api/use-save-profile";
 import { Loader2, RotateCcw } from "lucide-react";
 import { toast } from "sonner";
 import Hint from "@/components/hint";
+import { cn } from "@/lib/utils";
 const tabs = [
   { id: "profile", label: "Edit Profile" },
   { id: "preferences", label: "Preferences" },
@@ -152,16 +153,21 @@ const SettingsPage = () => {
       <div className="flex items-center space-x-10 md:space-x-20 border-b border-gray-100">
         {tabs.map((tab) => (
           <button
-            className={`pb-3 relative transition-colors duration-200
+            className={`pb-3 relative transition-colors duration-300 ease-in-out
               ${activeTab === tab.id ? "text-blue-600" : "text-gray-600 hover:text-gray-900"}
             `}
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
           >
             {tab.label}
-            {activeTab === tab.id && (
-              <div className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 transition-all duration-300" />
-            )}
+            <div
+              className={cn(
+                "absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 transform transition-all duration-300 ease-in-out",
+                activeTab === tab.id
+                  ? "scale-x-100 opacity-100"
+                  : "scale-x-0 opacity-0"
+              )}
+            />
           </button>
         ))}
       </div>

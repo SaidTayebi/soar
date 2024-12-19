@@ -4,15 +4,15 @@ export interface ProfileType {
   name: string;
   userName: string;
   password: string;
-  dateOfBirth: string;
+  dateOfBirth?: string;
   email: string;
-  avatar: string;
-  presentAddress: string;
-  permanentAddress: string;
-  city: string;
-  zip: string;
-  country: string;
-  updatedAt: number;
+  avatar?: string;
+  presentAddress?: string;
+  permanentAddress?: string;
+  city?: string;
+  zip?: string;
+  country?: string;
+  updatedAt?: number;
 }
 
 const fetchProfile: () => Promise<ProfileType> = async () => {

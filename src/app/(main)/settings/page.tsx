@@ -19,7 +19,10 @@ import { Button } from "@/components/ui/button";
 import { useProfileState } from "@/features/settings/store/profile-store";
 import Avatar from "../_components/avatar";
 import { useUploadAvatar } from "@/features/settings/api/use-upload-avatar";
-
+import { useSaveProfile } from "@/features/settings/api/use-save-profile";
+import { Loader2, RotateCcw } from "lucide-react";
+import { toast } from "sonner";
+import Hint from "@/components/hint";
 const tabs = [
   { id: "profile", label: "Edit Profile" },
   { id: "preferences", label: "Preferences" },
@@ -73,12 +76,13 @@ const SettingsPage = () => {
   const tabsRef = useRef<(HTMLButtonElement | undefined)[]>([]);
 
   const { profile, isLoading, setProfile } = useProfileState();
+  const { uploadAvatar, isLoading: isUploading, isSuccess } = useUploadAvatar();
+
   const {
-    uploadAvatar,
-    isLoading: isUploading,
-    isSuccess,
-    data,
-  } = useUploadAvatar();
+    saveProfile,
+    isLoading: isSaving,
+    isSuccess: isSaveSuccess,
+  } = useSaveProfile();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -96,6 +100,8 @@ const SettingsPage = () => {
       avatar: "",
     },
   });
+
+  const { isDirty, isValid } = form.formState;
 
   useEffect(() => {
     if (!isLoading && profile) {
@@ -122,7 +128,16 @@ const SettingsPage = () => {
   }, [activeTab]);
 
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
-    console.log(data);
+    saveProfile({
+      data,
+      onSuccess: () => {
+        setProfile(data);
+        toast.success("Profile updated");
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
   };
 
   const handleFileChange = async (
@@ -333,13 +348,31 @@ const SettingsPage = () => {
                       )}
                     />
                   </div>
-                  <Button
-                    className="w-full lg:w-auto lg:self-end"
-                    size="lg"
-                    type="submit"
-                  >
-                    Save
-                  </Button>
+                  <div className="flex items-center space-x-2 w-full lg:w-auto lg:self-end">
+                    {isDirty && (
+                      <Hint label="Reset" side="left">
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            form.reset();
+                          }}
+                        >
+                          <RotateCcw />
+                        </Button>
+                      </Hint>
+                    )}
+                    <Button
+                      className="w-full lg:w-auto lg:self-end"
+                      size="lg"
+                      type="submit"
+                      disabled={isSaving}
+                    >
+                      {isSaving && <Loader2 className="size-5 animate-spin" />}
+                      {isSaving ? "Saving..." : "Save"}
+                    </Button>
+                  </div>
                 </form>
               </Form>
             </motion.div>

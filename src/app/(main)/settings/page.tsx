@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -71,9 +71,6 @@ const FormSchema = z.object({
 
 const SettingsPage = () => {
   const [activeTab, setActiveTab] = useState("profile");
-  const [underlineWidth, setUnderlineWidth] = useState(0);
-  const [underlineLeft, setUnderlineLeft] = useState(0);
-  const tabsRef = useRef<(HTMLButtonElement | undefined)[]>([]);
 
   const { profile, isLoading, setProfile } = useProfileState();
   const { uploadAvatar, isLoading: isUploading, isSuccess } = useUploadAvatar();
@@ -108,24 +105,6 @@ const SettingsPage = () => {
       form.reset({ ...profile });
     }
   }, [profile, isLoading, form]);
-
-  useEffect(() => {
-    // Find the active tab button
-    const activeTabIndex = tabs.findIndex((tab) => tab.id === activeTab);
-    const activeTabButton = tabsRef.current[activeTabIndex];
-
-    if (activeTabButton) {
-      // Get the width and position of the active tab
-      const buttonRect = activeTabButton.getBoundingClientRect();
-      const containerRect =
-        activeTabButton.parentElement?.getBoundingClientRect();
-
-      if (containerRect) {
-        setUnderlineWidth(buttonRect.width);
-        setUnderlineLeft(buttonRect.left - containerRect.left);
-      }
-    }
-  }, [activeTab]);
 
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
     saveProfile({
@@ -170,31 +149,19 @@ const SettingsPage = () => {
 
   return (
     <div className="rounded-3xl bg-white w-full h-full p-9">
-      <div className="flex items-center space-x-10 md:space-x-20 border-b border-gray-100 relative">
-        <motion.div
-          className="absolute bottom-0 h-0.5 bg-blue-600 "
-          animate={{
-            width: underlineWidth,
-            x: underlineLeft,
-          }}
-          transition={{
-            type: "spring",
-            stiffness: 500,
-            damping: 30,
-          }}
-        />
-
-        {tabs.map((tab, index) => (
+      <div className="flex items-center space-x-10 md:space-x-20 border-b border-gray-100">
+        {tabs.map((tab) => (
           <button
-            className={`pb-3 transition-colors duration-200
-            ${activeTab === tab.id ? "text-blue-600" : "text-gray-600 hover:text-gray-900"}`}
+            className={`pb-3 relative transition-colors duration-200
+              ${activeTab === tab.id ? "text-blue-600" : "text-gray-600 hover:text-gray-900"}
+            `}
             key={tab.id}
-            ref={(el) => {
-              tabsRef.current[index] = el || undefined;
-            }}
             onClick={() => setActiveTab(tab.id)}
           >
             {tab.label}
+            {activeTab === tab.id && (
+              <div className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 transition-all duration-300" />
+            )}
           </button>
         ))}
       </div>
@@ -370,7 +337,7 @@ const SettingsPage = () => {
                       disabled={isSaving}
                     >
                       {isSaving && <Loader2 className="size-5 animate-spin" />}
-                      {isSaving ? "Saving..." : "Save"}
+                      Save
                     </Button>
                   </div>
                 </form>

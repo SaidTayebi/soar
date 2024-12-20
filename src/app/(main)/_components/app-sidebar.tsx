@@ -46,26 +46,25 @@ const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
       <SidebarContent className="mt-6">
         {menuItems.map((item) => (
           <SidebarMenu key={item.title} className="pl-[0.25px]">
-            <SidebarMenuItem
-              key={item.title}
-              className={cn(
-                "py-4 hover:bg-muted border-l-4 border-transparent",
-                pathname === item.url && " border-primary"
-              )}
-            >
-              <SidebarMenuButton
+            <Link href={item.url}>
+              <SidebarMenuItem
+                key={item.title}
                 className={cn(
-                  "flex items-center gap-2 py-4 px-6 hover:bg-transparent rounded-none text-muted-foreground",
-                  pathname === item.url && "text-primary font-semibold"
+                  "py-4 hover:bg-muted border-l-4 border-transparent",
+                  pathname === item.url && " border-primary"
                 )}
-                asChild
               >
-                <Link href={item.url}>
+                <SidebarMenuButton
+                  className={cn(
+                    "flex items-center gap-2 py-4 px-6 hover:bg-transparent rounded-none text-muted-foreground",
+                    pathname === item.url && "text-primary font-semibold"
+                  )}
+                >
                   <div className="">{item.icon}</div>
                   <span className="text-base">{item.title}</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </Link>
           </SidebarMenu>
         ))}
       </SidebarContent>

@@ -18,7 +18,10 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Soar",
-  description: "Your fiancial partner",
+  description: "Your financial partner",
+  icons: {
+    icon: "/logo.svg",
+  },
 };
 
 export default function RootLayout({

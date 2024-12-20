@@ -33,14 +33,9 @@ const Avatar = ({
           onChange={onChange}
         />
       )}
-      <div
-        className={cn(
-          "rounded-full overflow-hidden",
-          `w-[${size}px] h-[${size}px]`
-        )}
-      >
+      <div className={cn("rounded-full overflow-hidden")}>
         <Image
-          className="object-cover w-full h-full"
+          className="object-cover"
           src={src}
           alt="profile"
           width={size}

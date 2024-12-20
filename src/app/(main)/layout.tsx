@@ -14,7 +14,9 @@ const MainLayout = ({ children }: Props) => {
         <SidebarInset>
           <Topbar />
 
-          <main className="bg-background p-10">{children}</main>
+          <main className="bg-background p-6 md:p-10 h-full overflow-x-auto">
+            {children}
+          </main>
         </SidebarInset>
       </SidebarProvider>
     </div>

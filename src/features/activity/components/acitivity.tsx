@@ -12,6 +12,8 @@ import colors from "tailwindcss/colors";
 import { useGetActivity } from "../api/use-get-activity";
 import { format } from "date-fns";
 import { Skeleton } from "@/components/ui/skeleton";
+import { spacing } from "tailwindcss/defaultTheme";
+import { cn } from "@/lib/utils";
 
 const Activity = () => {
   const { data, isLoading } = useGetActivity();
@@ -30,9 +32,11 @@ const Activity = () => {
   return (
     <div className="flex flex-col gap-4 w-max">
       <div className="flex justify-between">
-        <span className="text-2xl font-semibold">Weekly Activity</span>
+        <span className="text-xl md:text-2xl font-semibold">
+          Weekly Activity
+        </span>
       </div>
-      <div className="flex flex-col justify-between gap-5 rounded-3xl bg-white border border-gray-200 h-[322px] w-[730px] p-6 pl-0">
+      <div className="flex flex-col justify-between gap-5 rounded-3xl bg-transparent md:bg-white md:border border-gray-200 h-[322px] w-[calc(100vw-theme(spacing.12))] md:w-[730px] p-6 pl-0">
         <div className="flex items-center self-end gap-6">
           <div className="flex items-center gap-2">
             <div className="rounded-full w-[15px] h-[15px] bg-black"></div>
@@ -104,7 +108,10 @@ Activity.Skeleton = function ActivitySkeleton() {
   return (
     <div className="flex justify-center space-x-10">
       {Array.from({ length: 7 }).map((_, index) => (
-        <div className="flex items-end gap-3" key={index}>
+        <div
+          className={cn("flex items-end gap-3", index > 4 && "hidden md:flex")}
+          key={index}
+        >
           <Skeleton className="h-48 w-4 rounded-full" />
           <Skeleton className="h-28 w-4 rounded-full" />
         </div>

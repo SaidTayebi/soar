@@ -42,9 +42,9 @@ const Topbar = () => {
   };
 
   return (
-    <header className="flex flex-col lg:flex-row items-center justify-between md:justify-start sticky lg:h-24 top-0 gap-4 py-8 pl-2 pr-8 bg-sidebar border-b border-sidebar-border">
+    <header className="flex flex-col lg:flex-row items-center justify-between md:justify-start sticky lg:h-24 top-0 gap-4 py-8  px-8 bg-sidebar border-b border-sidebar-border z-10">
       <div className="flex items-center justify-between w-full">
-        <SidebarTrigger />
+        <SidebarTrigger className="md:hidden" />
         <h1 className="md:text-3xl text-xl font-semibold">
           {getCurrentTitle()}
         </h1>

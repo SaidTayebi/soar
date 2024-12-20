@@ -45,3 +45,30 @@ export const useGetBalanceHistory = () => {
 
   return { data, isLoading };
 };
+
+export const loadingData = [
+  {
+    value: "250",
+    date: "2024-11-19",
+  },
+  {
+    value: "220",
+    date: "2024-08-16",
+  },
+  {
+    value: "250",
+    date: "2024-10-18",
+  },
+  {
+    value: "380",
+    date: "2024-09-17",
+  },
+  {
+    value: "500",
+    date: "2024-12-20",
+  },
+  {
+    value: "100",
+    date: "2024-07-14",
+  },
+];

@@ -41,7 +41,10 @@ const Topbar = () => {
   };
 
   return (
-    <header className="flex flex-col lg:flex-row items-center justify-between md:justify-start sticky lg:h-24 top-0 gap-4 py-8  px-8 bg-sidebar border-b border-sidebar-border z-10">
+    <header
+      className="flex flex-col lg:flex-row items-center justify-between md:justify-start shrink-0 
+      lg:h-24 w-full md:w-[calc(100vw-250px)] fixed top-0 gap-4 p-6 md:p-10 bg-sidebar border-b border-sidebar-border z-10"
+    >
       <div className="flex items-center justify-between w-full">
         <SidebarTrigger className="md:hidden" />
         <h1 className="md:text-3xl text-xl font-semibold">

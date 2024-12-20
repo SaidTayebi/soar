@@ -7,7 +7,7 @@ import Contacts from "@/features/transfers/components/contacts";
 
 const HomePage = () => {
   return (
-    <div className="flex flex-col items-start justify-center md:items-center gap-8">
+    <div className="flex flex-col items-start justify-center md:items-center gap-8 w-full">
       <div className="flex flex-col w-full md:flex-row md:justify-center gap-7">
         <Cards />
         <Transactions />

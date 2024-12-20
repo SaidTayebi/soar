@@ -8,18 +8,15 @@ interface Props {
 
 const MainLayout = ({ children }: Props) => {
   return (
-    <div className="flex h-full">
-      <SidebarProvider>
-        <AppSidebar />
-        <SidebarInset>
-          <Topbar />
-
-          <main className="bg-background p-6 md:p-10 h-full overflow-x-auto">
-            {children}
-          </main>
-        </SidebarInset>
-      </SidebarProvider>
-    </div>
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset>
+        <Topbar />
+        <main className="bg-background p-6 md:p-10 w-full overflow-x-auto mt-24">
+          {children}
+        </main>
+      </SidebarInset>
+    </SidebarProvider>
   );
 };
 

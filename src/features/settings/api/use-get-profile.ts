@@ -4,7 +4,7 @@ export interface ProfileType {
   name: string;
   userName: string;
   password: string;
-  dateOfBirth?: string;
+  dateOfBirth?: Date;
   email: string;
   avatar?: string;
   presentAddress?: string;
@@ -22,7 +22,7 @@ const fetchProfile: () => Promise<ProfileType> = async () => {
     name: "Jane Doe",
     userName: "jane.doe",
     password: "password",
-    dateOfBirth: "2021-01-28",
+    dateOfBirth: new Date("2021-01-28"),
     email: "jane.doe@example.com",
     avatar: "/avatars/user.png",
     presentAddress: "123 Main St, Anytown, USA",

@@ -6,7 +6,7 @@ const profileState = atom<ProfileType>({
   name: "",
   userName: "",
   password: "",
-  dateOfBirth: "",
+  dateOfBirth: undefined,
   email: "",
   avatar: "",
   presentAddress: "",

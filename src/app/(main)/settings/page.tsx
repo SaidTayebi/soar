@@ -20,10 +20,17 @@ import { useProfileState } from "@/features/settings/store/profile-store";
 import Avatar from "../_components/avatar";
 import { useUploadAvatar } from "@/features/settings/api/use-upload-avatar";
 import { useSaveProfile } from "@/features/settings/api/use-save-profile";
-import { Loader2, RotateCcw } from "lucide-react";
+import { CalendarIcon, Loader2, RotateCcw } from "lucide-react";
 import { toast } from "sonner";
 import Hint from "@/components/hint";
 import { cn } from "@/lib/utils";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { format } from "date-fns";
 const tabs = [
   { id: "profile", label: "Edit Profile" },
   { id: "preferences", label: "Preferences" },
@@ -61,7 +68,7 @@ const FormSchema = z.object({
     .min(8, {
       message: "Password must be at least 8 characters long.",
     }),
-  dateOfBirth: z.string().optional(),
+  dateOfBirth: z.date().optional(),
   presentAddress: z.string().optional(),
   permanentAddress: z.string().optional(),
   city: z.string().optional(),
@@ -89,7 +96,7 @@ const SettingsPage = () => {
       userName: "",
       password: "",
       email: "",
-      dateOfBirth: "",
+      dateOfBirth: undefined,
       presentAddress: "",
       permanentAddress: "",
       city: "",
@@ -252,11 +259,43 @@ const SettingsPage = () => {
                       control={form.control}
                       name="dateOfBirth"
                       render={({ field }) => (
-                        <FormItem>
+                        <FormItem className="flex flex-col justify-end w-full">
                           <FormLabel>Date of Birth</FormLabel>
-                          <FormControl>
-                            <Input {...field} />
-                          </FormControl>
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <FormControl>
+                                <Button
+                                  variant="outline"
+                                  className={cn(
+                                    "w-full pl-3 text-left font-normal bg-transparent",
+                                    !field.value && "text-muted-foreground"
+                                  )}
+                                >
+                                  {field.value ? (
+                                    format(field.value, "PPP")
+                                  ) : (
+                                    <span>Pick a date</span>
+                                  )}
+                                  <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                </Button>
+                              </FormControl>
+                            </PopoverTrigger>
+                            <PopoverContent
+                              className="w-auto p-0"
+                              align="start"
+                            >
+                              <Calendar
+                                mode="single"
+                                selected={field.value}
+                                onSelect={field.onChange}
+                                disabled={(date: Date) =>
+                                  date > new Date() ||
+                                  date < new Date("1900-01-01")
+                                }
+                                initialFocus
+                              />
+                            </PopoverContent>
+                          </Popover>
                         </FormItem>
                       )}
                     />

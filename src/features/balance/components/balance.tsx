@@ -28,7 +28,7 @@ const Balance = () => {
       </div>
       <div className="flex flex-col gap-5 rounded-3xl bg-white border border-gray-200 h-[276px] w-[635px] p-6 pl-0">
         <div>
-          <ChartContainer className="max-h-[250px] w-full" config={chartConfig}>
+          <ChartContainer className="h-[250px] w-full" config={chartConfig}>
             <AreaChart
               accessibilityLayer
               data={balanceHistory}

@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 import { TransactionType } from "../api/use-get-transactions";
 import Image from "next/image";
 import { format } from "date-fns";
+import { Skeleton } from "@/components/ui/skeleton";
 const Transaction = ({
   id,
   label,
@@ -38,6 +39,21 @@ const Transaction = ({
         <span>{currency}</span>
         <span>{amount}</span>
       </div>
+    </div>
+  );
+};
+
+Transaction.displayName = "Transaction";
+
+Transaction.Skeleton = function TransactionSkeleton() {
+  return (
+    <div className="flex items-center justify-between">
+      <Skeleton className="rounded-full w-12 h-12" />
+      <div className="flex flex-col gap-3">
+        <Skeleton className="w-40 h-3" />
+        <Skeleton className="w-16 h-3" />
+      </div>
+      <Skeleton className="w-10 h-2" />
     </div>
   );
 };

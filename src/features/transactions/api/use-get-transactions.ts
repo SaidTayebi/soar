@@ -1,3 +1,4 @@
+import { API_WAIT_TIME } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 
 export interface TransactionType {
@@ -12,7 +13,7 @@ export interface TransactionType {
 }
 
 const fetchTransactions: () => Promise<TransactionType[]> = async () => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, API_WAIT_TIME));
 
   return [
     {

@@ -1,3 +1,4 @@
+import { API_WAIT_TIME } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 
 interface Card {
@@ -11,7 +12,7 @@ interface Card {
 }
 
 const fetchCards: () => Promise<Card[]> = async () => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, API_WAIT_TIME));
 
   return [
     {

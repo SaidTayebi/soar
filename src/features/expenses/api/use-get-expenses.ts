@@ -1,3 +1,4 @@
+import { API_WAIT_TIME } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import colors from "tailwindcss/colors";
 
@@ -10,7 +11,7 @@ export interface ExpenseType {
 }
 
 const fetchExpenses: () => Promise<ExpenseType[]> = async () => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, API_WAIT_TIME));
 
   return [
     {
@@ -23,7 +24,7 @@ const fetchExpenses: () => Promise<ExpenseType[]> = async () => {
     {
       id: "2",
       category: "bill_expense",
-      label: "Bill Expense",
+      label: "Bills",
       value: 15,
       fill: "#FC7900",
     },

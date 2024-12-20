@@ -1,3 +1,4 @@
+import { API_WAIT_TIME } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 
 export interface ProfileType {
@@ -16,7 +17,7 @@ export interface ProfileType {
 }
 
 const fetchProfile: () => Promise<ProfileType> = async () => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, API_WAIT_TIME));
 
   return {
     name: "Jane Doe",

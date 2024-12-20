@@ -53,32 +53,40 @@ const Contacts = () => {
         <span className="text-2xl font-semibold">Quick Transfer</span>
       </div>
       <div className="flex flex-col items-center gap-10 rounded-3xl bg-white border border-gray-200 h-[276px] w-[445px] p-6">
-        <Carousel
-          opts={{
-            align: "center",
-          }}
-          className="w-[300px] max-w-sm h-[140px] pt-2"
-        >
-          <CarouselContent className="-ml-1">
-            {data.map((contact) => (
-              <CarouselItem
-                className={cn(
-                  "md:basis-1/2 lg:basis-1/3 pl-0",
-                  shake && !selectedContact && "animate-shake"
-                )}
-                key={contact.id}
-                onClick={() => setSelectedContact(contact)}
-              >
-                <Contact
-                  {...contact}
-                  isSelected={selectedContact?.id === contact.id}
-                />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="size-12 shadow-md" />
-          <CarouselNext className="size-12 shadow-md" />
-        </Carousel>
+        {isLoading ? (
+          <div className="flex items-center gap-8 h-[140px] pt-2">
+            <Contact.Skeleton />
+            <Contact.Skeleton />
+            <Contact.Skeleton />
+          </div>
+        ) : (
+          <Carousel
+            opts={{
+              align: "center",
+            }}
+            className="w-[300px] max-w-sm h-[140px] pt-2"
+          >
+            <CarouselContent className="-ml-1">
+              {data.map((contact) => (
+                <CarouselItem
+                  className={cn(
+                    "md:basis-1/2 lg:basis-1/3 pl-0",
+                    shake && !selectedContact && "animate-shake"
+                  )}
+                  key={contact.id}
+                  onClick={() => setSelectedContact(contact)}
+                >
+                  <Contact
+                    {...contact}
+                    isSelected={selectedContact?.id === contact.id}
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="size-12 shadow-md" />
+            <CarouselNext className="size-12 shadow-md" />
+          </Carousel>
+        )}
         <div className="flex items-center space-x-4">
           <span className="text-sm text-gray-500">Write amount</span>
           <div className="flex items-center gap-2 relative left-11">

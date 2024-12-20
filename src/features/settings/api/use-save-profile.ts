@@ -3,7 +3,7 @@ import { ProfileType } from "./use-get-profile";
 
 const mockSaveProfile = async (params: {
   data: ProfileType;
-  onSuccess?: (response?: any) => void;
+  onSuccess?: (response?: { data: ProfileType; success: boolean }) => void;
   onError?: (error?: any) => void;
 }): Promise<{ data: ProfileType; success: boolean }> => {
   await new Promise((resolve) => setTimeout(resolve, 1000));

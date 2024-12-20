@@ -4,7 +4,6 @@ import Image from "next/image";
 import { format } from "date-fns";
 import { Skeleton } from "@/components/ui/skeleton";
 const Transaction = ({
-  id,
   label,
   date,
   amount,

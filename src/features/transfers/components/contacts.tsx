@@ -37,7 +37,7 @@ const Contacts = () => {
       setSelectedContact(undefined);
       setAmount(null);
     }
-  }, [isSuccess, isTransferLoading]);
+  }, [isSuccess, isTransferLoading, amount, selectedContact?.name]);
 
   const handleTransfer = () => {
     if (selectedContact && amount && amount > 0) {

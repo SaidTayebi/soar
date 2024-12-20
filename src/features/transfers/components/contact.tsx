@@ -3,14 +3,16 @@ import { ContactType } from "../api/use-get-contacts";
 import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 
-interface ContactProps extends ContactType {}
+interface ContactProps extends ContactType {
+  isSelected?: boolean;
+}
 
 const Contact = ({
   name,
   position,
   picture,
   isSelected = false,
-}: ContactProps & { isSelected?: boolean }) => {
+}: ContactProps) => {
   return (
     <div className="flex flex-col items-center gap-2 cursor-pointer">
       <div className="rounded-full">

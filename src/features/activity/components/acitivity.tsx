@@ -12,7 +12,6 @@ import colors from "tailwindcss/colors";
 import { useGetActivity } from "../api/use-get-activity";
 import { format } from "date-fns";
 import { Skeleton } from "@/components/ui/skeleton";
-import { spacing } from "tailwindcss/defaultTheme";
 import { cn } from "@/lib/utils";
 
 const Activity = () => {

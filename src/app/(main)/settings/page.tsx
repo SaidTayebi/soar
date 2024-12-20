@@ -81,7 +81,7 @@ const SettingsPage = () => {
   const [activeTab, setActiveTab] = useState("profile");
 
   const { profile, isLoading, setProfile } = useProfileState();
-  const { uploadAvatar, isLoading: isUploading, isSuccess } = useUploadAvatar();
+  const { uploadAvatar } = useUploadAvatar();
 
   const {
     saveProfile,
@@ -106,7 +106,7 @@ const SettingsPage = () => {
     },
   });
 
-  const { isDirty, isValid } = form.formState;
+  const { isDirty } = form.formState;
 
   useEffect(() => {
     if (!isLoading && profile) {

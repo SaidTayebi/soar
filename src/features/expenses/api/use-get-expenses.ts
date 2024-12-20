@@ -1,6 +1,5 @@
 import { API_WAIT_TIME } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
-import colors from "tailwindcss/colors";
 
 export interface ExpenseType {
   id: string;

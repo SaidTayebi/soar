@@ -4,7 +4,7 @@ export const useUploadAvatar = () => {
   const mutation = useMutation({
     mutationFn: async (params: {
       data: FormData;
-      onSuccess?: (response?: any) => void;
+      onSuccess?: (response?: { avatarPath: string }) => void;
       onError?: (error?: any) => void;
     }) => {
       const response = await fetch("/api/upload-avatar", {

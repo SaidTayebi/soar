@@ -83,11 +83,7 @@ const SettingsPage = () => {
   const { profile, isLoading, setProfile } = useProfileState();
   const { uploadAvatar } = useUploadAvatar();
 
-  const {
-    saveProfile,
-    isLoading: isSaving,
-    isSuccess: isSaveSuccess,
-  } = useSaveProfile();
+  const { saveProfile, isLoading: isSaving } = useSaveProfile();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),

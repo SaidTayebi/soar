@@ -5,7 +5,7 @@ export const useUploadAvatar = () => {
     mutationFn: async (params: {
       data: FormData;
       onSuccess?: (response?: { avatarPath: string }) => void;
-      onError?: (error?: any) => void;
+      onError?: (error?: Error) => void;
     }) => {
       const response = await fetch("/api/upload-avatar", {
         method: "POST",

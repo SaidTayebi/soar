@@ -5,9 +5,7 @@ interface TransferData {
   amount: number;
 }
 
-const mockTransfer = async (
-  data: TransferData
-): Promise<{ success: boolean }> => {
+const mockTransfer = async (): Promise<{ success: boolean }> => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
   return { success: true };

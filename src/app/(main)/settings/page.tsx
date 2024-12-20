@@ -118,7 +118,7 @@ const SettingsPage = () => {
         toast.success("Profile updated");
       },
       onError: (error) => {
-        toast.error(error.message);
+        toast.error(error?.message);
       },
     });
   };
@@ -137,7 +137,7 @@ const SettingsPage = () => {
     uploadAvatar({
       data: formData,
       onSuccess: (payload) => {
-        const { avatarPath } = payload;
+        const { avatarPath } = payload || {};
 
         setProfile({
           ...profile,

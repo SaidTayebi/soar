@@ -5,15 +5,25 @@ interface TransferData {
   amount: number;
 }
 
-const mockTransfer = async (): Promise<{ success: boolean }> => {
+const mockTransfer = async (params: {
+  data: TransferData;
+  onSuccess?: (response?: { data: TransferData; success: boolean }) => void;
+  onError?: (error?: Error) => void;
+}): Promise<{ data: TransferData; success: boolean }> => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  return { success: true };
+  return { data: params.data, success: true };
 };
 
 export const useQuickTransfer = () => {
   const mutation = useMutation({
     mutationFn: mockTransfer,
+    onSuccess: (payload, { onSuccess }) => {
+      onSuccess?.(payload);
+    },
+    onError: (error, { onError }) => {
+      onError?.(error);
+    },
   });
 
   return {

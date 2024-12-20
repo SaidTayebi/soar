@@ -14,34 +14,32 @@ import Contact from "./contact";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { LoaderCircle, Send } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useQuickTransfer } from "../api/use-quick-transfer";
 import { cn } from "@/lib/utils";
 import Hint from "@/components/hint";
 
 const Contacts = () => {
   const { data, isLoading } = useGetContacts();
-  const {
-    transfer,
-    isLoading: isTransferLoading,
-    isSuccess,
-  } = useQuickTransfer();
+  const { transfer, isLoading: isTransferLoading } = useQuickTransfer();
   const [selectedContact, setSelectedContact] = useState<ContactType>();
   const [amount, setAmount] = useState<number | null>(null);
   const [shake, setShake] = useState(false);
 
-  useEffect(() => {
-    if (isSuccess && !isTransferLoading) {
-      toast.success(`$${amount} sent to ${selectedContact?.name}`);
-
-      setSelectedContact(undefined);
-      setAmount(null);
-    }
-  }, [isSuccess, isTransferLoading, amount, selectedContact?.name]);
-
   const handleTransfer = () => {
     if (selectedContact && amount && amount > 0) {
-      transfer({ contactId: selectedContact.id, amount });
+      transfer({
+        data: { contactId: selectedContact.id, amount },
+        onSuccess: () => {
+          toast.success(`$${amount} sent to ${selectedContact?.name}`);
+
+          setSelectedContact(undefined);
+          setAmount(null);
+        },
+        onError: (error) => {
+          toast.error(error?.message);
+        },
+      });
     } else {
       setShake(true);
       setTimeout(() => setShake(false), 500);

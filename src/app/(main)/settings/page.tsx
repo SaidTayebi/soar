@@ -3,16 +3,26 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { z } from "zod";
+import dynamic from "next/dynamic";
 
 import { useProfileState } from "@/features/settings/store/profile-store";
 import { useUploadAvatar } from "@/features/settings/api/use-upload-avatar";
 import { useSaveProfile } from "@/features/settings/api/use-save-profile";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
-import {
-  FormSchema,
-  ProfileForm,
-} from "@/features/settings/components/profile-form";
+import { FormSchema } from "@/features/settings/components/profile-form";
+
+const ProfileForm = dynamic(
+  () =>
+    import("@/features/settings/components/profile-form").then((mod) => ({
+      default: mod.ProfileForm,
+    })),
+  {
+    loading: () => <div>Loading...</div>,
+    ssr: false,
+  }
+);
+
 const tabs = [
   { id: "profile", label: "Edit Profile" },
   { id: "preferences", label: "Preferences" },

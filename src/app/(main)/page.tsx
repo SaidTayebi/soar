@@ -15,7 +15,7 @@ const Balance = dynamic(() => import("@/features/balance/components/balance"));
 
 const HomePage = () => {
   return (
-    <div className="flex flex-col items-start justify-center md:items-center gap-8 w-ful">
+    <div className="flex flex-col items-start justify-center md:items-center gap-8">
       <div className="flex items-center flex-wrap lg:flex-nowrap w-full gap-7">
         <Cards />
         <Transactions />

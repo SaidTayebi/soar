@@ -26,13 +26,13 @@ const Expenses = () => {
     ) || {};
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 w-full">
       <div className="flex justify-between">
         <span className="text-xl md:text-2xl font-semibold">
           Expense Statistics
         </span>
       </div>
-      <div className="flex flex-col items-center justify-center gap-5 rounded-3xl bg-transparent md:bg-white md:border border-gray-200 md:h-[322px] w-full lg:max-w-[350px] p-6">
+      <div className="flex flex-col items-center justify-center gap-5 rounded-3xl bg-transparent md:bg-white md:border border-gray-200 md:h-[322px] w-full p-6">
         {isLoading ? (
           <div className="size-48 rounded-full animate-pulse bg-gray-200"></div>
         ) : (

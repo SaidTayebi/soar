@@ -7,7 +7,7 @@ const Transactions = () => {
   const { data, isLoading } = useGetTransactions();
 
   return (
-    <div className="flex flex-col gap-4 w-full">
+    <div className="flex flex-col gap-4 w-full min-w-[200px]">
       <div className="flex justify-between">
         <span className="text-xl md:text-2xl font-semibold">
           Recent Transactions

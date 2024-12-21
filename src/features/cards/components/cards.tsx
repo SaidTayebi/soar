@@ -15,7 +15,7 @@ const Cards = () => {
   const { data, isLoading } = useGetCards();
 
   return (
-    <div className="flex flex-col gap-4 w-[440px] md:w-max">
+    <div className="flex flex-col gap-4 md:w-max">
       <div className="flex justify-between">
         <span className="text-xl md:text-2xl font-semibold">My Cards</span>
 
@@ -39,7 +39,7 @@ const Cards = () => {
         </Sheet>
       </div>
 
-      <div className="flex gap-5 md:gap-7 w-[500px] md:w-[730px] overflow-x-auto">
+      <div className="flex gap-5 md:gap-7 w-[460px] md:w-[730px] overflow-x-auto">
         {isLoading
           ? Array.from({ length: 2 }, (_, index) => (
               <Card.Skeleton key={index} />

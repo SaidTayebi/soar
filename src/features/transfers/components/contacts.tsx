@@ -47,7 +47,7 @@ const Contacts = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4 w-full lg:min-w-[445px]">
+    <div className="flex flex-col gap-4 w-full lg:min-w-[400px] lg:max-w-[445px]">
       <div className="flex justify-between">
         <span className="text-xl md:text-2xl font-semibold">
           Quick Transfer

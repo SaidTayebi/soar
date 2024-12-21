@@ -37,7 +37,7 @@ const Activity = () => {
           Weekly Activity
         </span>
       </div>
-      <div className="flex flex-col justify-between gap-5 rounded-3xl bg-transparent md:bg-white md:border border-gray-200 h-[322px] w-full p-6 pl-0">
+      <div className="flex flex-col justify-between gap-5 rounded-3xl bg-transparent md:bg-white md:border border-gray-200 h-[322px] md:w-[730px] p-6 pl-0">
         <div className="flex items-center self-end gap-6">
           <div className="flex items-center gap-2">
             <div className="rounded-full w-[15px] h-[15px] bg-black"></div>

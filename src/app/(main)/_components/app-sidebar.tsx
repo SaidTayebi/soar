@@ -1,7 +1,5 @@
 "use client";
 
-import * as React from "react";
-
 import {
   Sidebar,
   SidebarContent,
@@ -12,7 +10,18 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
-import { ClipboardCheck, Home, Settings } from "lucide-react";
+import {
+  ArrowRightLeft,
+  ClipboardCheck,
+  CreditCard,
+  HandCoins,
+  Home,
+  PiggyBank,
+  Settings,
+  ShieldCheck,
+  UserRound,
+  Wrench,
+} from "lucide-react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
@@ -22,6 +31,48 @@ export const menuItems = [
     label: "Overview",
     url: "/",
     icon: <Home className="size-7" />,
+  },
+  {
+    title: "Transactions",
+    label: "All Transactions",
+    url: "",
+    icon: <ArrowRightLeft className="size-7" />,
+  },
+  {
+    title: "Accounts",
+    label: "All Accounts",
+    url: "",
+    icon: <UserRound className="size-7" />,
+  },
+  {
+    title: "Investments",
+    label: "All Investments",
+    url: "",
+    icon: <PiggyBank className="size-7" />,
+  },
+  {
+    title: "Credit Cards",
+    label: "All Credit Cards",
+    url: "",
+    icon: <CreditCard className="size-7" />,
+  },
+  {
+    title: "Loans",
+    label: "All Loans",
+    url: "",
+    icon: <HandCoins className="size-7" />,
+  },
+  {
+    title: "Services",
+    label: "All Services",
+    url: "",
+    icon: <Wrench className="size-7" />,
+  },
+  {
+    title: "My Privileges",
+    label: "All Privileges",
+    url: "",
+    icon: <ShieldCheck className="size-7" />,
   },
 
   {

@@ -26,6 +26,7 @@ import { cn } from "@/lib/utils";
 import Hint from "@/components/hint";
 import Avatar from "@/app/(main)/_components/avatar";
 import { useEffect } from "react";
+import { ProfileType } from "../api/use-get-profile";
 
 export const FormSchema = z.object({
   name: z
@@ -68,7 +69,7 @@ export const FormSchema = z.object({
 });
 
 type ProfileFormProps = {
-  profile: any;
+  profile: ProfileType;
   isLoading: boolean;
   isSaving: boolean;
   onSubmit: (data: z.infer<typeof FormSchema>) => void;

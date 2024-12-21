@@ -13,8 +13,8 @@ const Transaction = ({
   bgColor,
 }: TransactionType) => {
   return (
-    <div className="flex items-center justify-between">
-      <div className="flex items-center gap-3">
+    <div className="flex items-center justify-between w-full">
+      <div className="flex items-center gap-3 w-full">
         <div
           className="flex items-center justify-center rounded-full w-12 h-12"
           style={{ backgroundColor: bgColor }}

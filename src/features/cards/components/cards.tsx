@@ -39,7 +39,7 @@ const Cards = () => {
         </Sheet>
       </div>
 
-      <div className="flex gap-5 md:gap-7 md:w-[730px] overflow-x-auto">
+      <div className="flex gap-5 md:gap-7 w-[500px] md:w-[730px] overflow-x-auto">
         {isLoading
           ? Array.from({ length: 2 }, (_, index) => (
               <Card.Skeleton key={index} />

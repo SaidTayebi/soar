@@ -7,13 +7,13 @@ const Transactions = () => {
   const { data, isLoading } = useGetTransactions();
 
   return (
-    <div className="flex flex-col gap-4 w-full md:w-max">
+    <div className="flex flex-col gap-4 w-full">
       <div className="flex justify-between">
         <span className="text-xl md:text-2xl font-semibold">
           Recent Transactions
         </span>
       </div>
-      <div className="flex flex-col gap-5 rounded-3xl bg-transparent md:bg-white md:border border-gray-200 h-[235px] w-full md:w-[350px] p-6 overflow-y-auto">
+      <div className="flex flex-col gap-5 rounded-3xl bg-transparent md:bg-white md:border border-gray-200 h-[235px] w-full p-6 overflow-y-auto">
         {isLoading ? (
           <>
             <Transaction.Skeleton />

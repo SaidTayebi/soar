@@ -7,16 +7,17 @@ import Contacts from "@/features/transfers/components/contacts";
 
 const HomePage = () => {
   return (
-    <div className="flex flex-col items-start justify-center md:items-center gap-8 w-full">
-      <div className="flex flex-col w-full md:flex-row md:justify-center gap-7">
+    <div className="flex flex-col items-start justify-center md:items-center gap-8 w-ful">
+      <div className="flex items-center flex-wrap lg:flex-nowrap w-full gap-7">
         <Cards />
         <Transactions />
       </div>
-      <div className="flex flex-col md:flex-row gap-7">
+      <div className="flex items-center flex-wrap lg:flex-nowrap w-full gap-7">
         <Activity />
         <Expenses />
       </div>
-      <div className="flex flex-col md:flex-row gap-7">
+
+      <div className="flex items-center flex-wrap lg:flex-nowrap w-full gap-7">
         <Contacts />
         <Balance />
       </div>

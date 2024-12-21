@@ -12,7 +12,7 @@ const MainLayout = ({ children }: Props) => {
       <AppSidebar />
       <SidebarInset>
         <Topbar />
-        <main className="bg-background p-6 md:p-10 w-full overflow-x-auto mt-24">
+        <main className="bg-background p-6 md:p-10 w-full  mt-40 lg:mt-24">
           {children}
         </main>
       </SidebarInset>

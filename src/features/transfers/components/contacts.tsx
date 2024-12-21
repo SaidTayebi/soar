@@ -47,13 +47,13 @@ const Contacts = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4 w-max">
+    <div className="flex flex-col gap-4 w-full lg:min-w-[445px]">
       <div className="flex justify-between">
         <span className="text-xl md:text-2xl font-semibold">
           Quick Transfer
         </span>
       </div>
-      <div className="flex flex-col items-center gap-10 rounded-3xl bg-transparent md:bg-white md:border border-gray-200 md:h-[276px] w-[445px] p-6">
+      <div className="flex flex-col items-center gap-10 rounded-3xl bg-transparent md:bg-white md:border border-gray-200 md:h-[276px] p-6">
         {isLoading ? (
           <div className="flex items-center gap-8 h-[140px] pt-2">
             <Contact.Skeleton />

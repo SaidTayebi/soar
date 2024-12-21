@@ -23,13 +23,13 @@ const Balance = () => {
   const { data: balanceHistory, isLoading } = useGetBalanceHistory();
 
   return (
-    <div className="flex flex-col gap-4 w-max">
+    <div className="flex flex-col gap-4 w-full">
       <div className="flex justify-between">
         <span className="text-xl md:text-2xl font-semibold">
           Balance History
         </span>
       </div>
-      <div className="flex flex-col gap-5 rounded-3xl bg-transparent md:bg-white md:border border-gray-200 h-[276px] w-[calc(100vw-theme(spacing.12))] md:w-[635px] p-4 md:p-6 pl-0">
+      <div className="flex flex-col gap-5 rounded-3xl bg-transparent md:bg-white md:border border-gray-200 h-[276px] w-full p-4 md:p-6 pl-0">
         <div>
           {isLoading ? (
             <ChartContainer

@@ -13,9 +13,11 @@ import { useGetActivity } from "../api/use-get-activity";
 import { format } from "date-fns";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Activity = () => {
   const { data, isLoading } = useGetActivity();
+  const isMobile = useIsMobile();
 
   const chartConfig = {
     deposit: {
@@ -78,7 +80,7 @@ const Activity = () => {
                   dataKey="withdrawal"
                   fill="var(--color-withdrawal)"
                   radius={50}
-                  barSize={15}
+                  barSize={isMobile ? 10 : 15}
                   style={{
                     transform: "translateX(-2px)",
                   }}
@@ -87,7 +89,7 @@ const Activity = () => {
                   dataKey="deposit"
                   fill="var(--color-deposit)"
                   radius={50}
-                  barSize={15}
+                  barSize={isMobile ? 10 : 15}
                   style={{
                     transform: "translateX(2px)",
                   }}

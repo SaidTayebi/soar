@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { BellDot, Search, Settings } from "lucide-react";
+import { Banknote, BellDot, Home, Search, Settings } from "lucide-react";
 import Link from "next/link";
 
 import { useProfileState } from "@/features/settings/store/profile-store";
@@ -9,6 +9,19 @@ import { SidebarTrigger } from "@/components/ui/sidebar";
 import { menuItems } from "./app-sidebar";
 import Avatar from "./avatar";
 import { cn } from "@/lib/utils";
+import { useState, useEffect } from "react";
+import { Calculator, Calendar, CreditCard, Smile, User } from "lucide-react";
+
+import {
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+  CommandShortcut,
+} from "@/components/ui/command";
 
 const Topbar = () => {
   const pathname = usePathname();
@@ -26,17 +39,78 @@ const Topbar = () => {
     size: "sm" | "lg";
     className?: string;
   }) => {
+    const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+      const down = (e: KeyboardEvent) => {
+        if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+          e.preventDefault();
+          setOpen((open) => !open);
+        }
+      };
+      document.addEventListener("keydown", down);
+      return () => document.removeEventListener("keydown", down);
+    }, []);
+
     return (
-      <div
-        className={cn(
-          "flex items-center rounded-full bg-gray-100  px-6 gap-2 text-blue-400 cursor-pointer",
-          size === "lg" ? "w-[255px] h-[50px]" : "w-full h-[40px]",
-          className
-        )}
-      >
-        <Search className="size-6" />
-        <span>Search for something</span>
-      </div>
+      <>
+        <div
+          className={cn(
+            "flex items-center justify-between rounded-full bg-gray-100  px-6 gap-2 text-blue-400 cursor-pointer",
+            size === "lg" ? "w-[300px] h-[50px]" : "w-full h-[40px]",
+            className
+          )}
+          onClick={() => setOpen(true)}
+        >
+          <div className="flex items-center gap-2">
+            <Search className="size-6" />
+            <span>Search for something</span>
+          </div>
+          <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+            <span className="text-xs">⌘</span>K
+          </kbd>
+        </div>
+
+        <CommandDialog open={open} onOpenChange={setOpen}>
+          <CommandInput placeholder="Type a command or search..." />
+          <CommandList>
+            <CommandEmpty>No results found.</CommandEmpty>
+            <CommandGroup heading="Dashboard">
+              <CommandItem>
+                <Link
+                  className="flex items-center justify-between gap-2 w-full "
+                  href="/"
+                >
+                  <Home />
+                  Overview
+                  <CommandShortcut>⌘D</CommandShortcut>
+                </Link>
+              </CommandItem>
+            </CommandGroup>
+            <CommandSeparator />
+            <CommandGroup heading="Settings">
+              <CommandItem>
+                <Link
+                  className="flex items-center justify-between gap-2 w-full "
+                  href="/settings"
+                >
+                  <User />
+                  Profile
+                  <CommandShortcut>⌘P</CommandShortcut>
+                </Link>
+              </CommandItem>
+            </CommandGroup>
+            <CommandSeparator />
+            <CommandGroup>
+              <CommandItem>
+                <Banknote />
+                Quick Transfer
+                <CommandShortcut>⌘T</CommandShortcut>
+              </CommandItem>
+            </CommandGroup>
+          </CommandList>
+        </CommandDialog>
+      </>
     );
   };
 

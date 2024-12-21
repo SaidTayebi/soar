@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Banknote, BellDot, Home, Search, Settings } from "lucide-react";
+import { Banknote, BellDot, Home, Search, Settings, User } from "lucide-react";
 import Link from "next/link";
 
 import { useProfileState } from "@/features/settings/store/profile-store";
@@ -10,7 +10,6 @@ import { menuItems } from "./app-sidebar";
 import Avatar from "./avatar";
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
-import { Calculator, Calendar, CreditCard, Smile, User } from "lucide-react";
 
 import {
   CommandDialog,

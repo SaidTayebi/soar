@@ -1,9 +1,17 @@
-import Activity from "@/features/activity/components/acitivity";
-import Balance from "@/features/balance/components/balance";
+import dynamic from "next/dynamic";
 import Cards from "@/features/cards/components/cards";
-import Expenses from "@/features/expenses/components/expenses";
 import Transactions from "@/features/transactions/components/transactions";
-import Contacts from "@/features/transfers/components/contacts";
+
+const Activity = dynamic(
+  () => import("@/features/activity/components/acitivity")
+);
+const Expenses = dynamic(
+  () => import("@/features/expenses/components/expenses")
+);
+const Contacts = dynamic(
+  () => import("@/features/transfers/components/contacts")
+);
+const Balance = dynamic(() => import("@/features/balance/components/balance"));
 
 const HomePage = () => {
   return (

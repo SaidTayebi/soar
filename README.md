@@ -35,6 +35,7 @@ You can visit the vercel live demo [`here`](https://soar-finance.vercel.app).
 - [x] Possibility to reset the form if modified
 - [x] Persist changes in the store using `jotai`
 - [x] Edit profile picture and save it in the public folder using Next API Routes
+- [x] Add a Comamand + K shortcut to open the search bar
 
 ### To improve
 

@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Frontend Assessment
 
 ## Getting Started
 
-First, run the development server:
+### This project uses Next 15 and React 19
+
+Install the dependencies:
+
+```bash
+npm i --legacy-peer-deps
+```
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+You can visit the vercel live demo [`here`](https://soar-finance.vercel.app).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Extra features and improvements
 
-## Learn More
+- [x] Skeletons and loaders for the widgest
+- [x] Mock API calls using `react-query`
+- [x] Mock Quick Transfer API call and shake animation if no amount or recepient is provided
+- [x] Display a toast message when the quick transfer is successful
 
-To learn more about Next.js, take a look at the following resources:
+### Settings
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [x] Validate the profile form fields
+- [x] Mock API call to save the profile
+- [x] Display a toast message when the profile is saved
+- [x] Possibility to reset the form if modified
+- [x] Persist changes in the store using `jotai`
+- [x] Edit profile picture and save it in the public folder using Next API Routes
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### To improve
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The overall responsiveness of the app could be improved and needs more testing accross all major browsers and platforms.

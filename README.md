@@ -1,5 +1,8 @@
 # Frontend Assessment
 
+  <img width="800" alt="Screenshot 2024-12-21 at 14 02 42" src="https://github.com/user-attachments/assets/7c72d55e-33ba-4bbe-b561-ed06dfcf0ccd" />
+
+
 ## Getting Started
 
 ### This project uses Next 15 and React 19

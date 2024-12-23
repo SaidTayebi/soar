@@ -83,7 +83,7 @@ const SettingsPage = () => {
       <div className="flex items-center space-x-10 md:space-x-20 border-b border-gray-100">
         {tabs.map((tab) => (
           <button
-            className={`pb-3 relative transition-colors duration-300 ease-in-out
+            className={`pb-3 relative transition-colors duration-300 ease-in-out md:text-base text-sm
               ${activeTab === tab.id ? "text-blue-600" : "text-gray-600 hover:text-gray-900"}
             `}
             key={tab.id}
